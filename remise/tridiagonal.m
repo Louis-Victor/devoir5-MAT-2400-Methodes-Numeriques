@@ -1,5 +1,5 @@
 function x = tridiagonal(D,I,S,b)
-    n = length(D);
+    n = length(D)
     y = zeros([1 n]);
     x = zeros([1 n]);
     y(1) = b(1)/D(1);
