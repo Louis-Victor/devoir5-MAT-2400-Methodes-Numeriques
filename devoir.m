@@ -2,8 +2,9 @@ close all
 % ------ Q2 -----
 % ------ a -----
 p = @(x) -x.^(-1);
-q = @(x) -1.6*x.^(-4);
-r = @(x) 0;
+q = @(x) 0;
+r = @(x) -1.6*x.^(-4);
+
 
 % interval [a,b]
 a=0.9;
@@ -74,8 +75,10 @@ k = 5;
 E = zeros([1, k-1]);
 for i = 2:k
     h=10^(-i);
-    N=round(10^i*(b-a))-1;
-    x = a*ones([1, N+2])+h*(0:(N+1));
+    x=a:h:b;
+    N = length(x)-2;
+    %N=floor((b-a))/h)-1;
+    %x = a*ones([1, N+2])+h*(0:(N+1));
 
     P = p(x);
     Q = q(x);
@@ -104,3 +107,4 @@ figure(2);
 %semilogx(10.^(-(2:k)),E,'-o');
 loglog(10.^(-(2:k)),E,'-o');
 %set ( gca, 'xdir', 'reverse' )
+xlabel('h'); ylabel('E(h)'); title('Erreur maximale E(h) en échelle log-log');

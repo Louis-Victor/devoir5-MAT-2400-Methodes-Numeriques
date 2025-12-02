@@ -1,4 +1,4 @@
-function y = problimite(N,P,Q,R,a,b,alp,bet)
+ function y = problimite(N,P,Q,R,a,b,alp,bet)
 
     h = (b-a)/(N+1);
 
