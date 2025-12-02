@@ -1,8 +1,8 @@
 close all
 % ------ Q2 -----
 % ------ a -----
-p = @(x) x.^(-1);
-q = @(x) 1.6*x.^(-4);
+p = @(x) -x.^(-1);
+q = @(x) -1.6*x.^(-4);
 r = @(x) 0;
 
 % interval [a,b]
@@ -75,7 +75,7 @@ E = zeros([1, k-1]);
 for i = 2:k
     h=10^(-i);
     N=round(10^i*(b-a))-1;
-    x = a*ones([1 N+2])+h*(0:(N+1));
+    x = a*ones([1, N+2])+h*(0:(N+1));
 
     P = p(x);
     Q = q(x);
@@ -89,9 +89,18 @@ for i = 2:k
     if length(R) == 1
         R = R * ones([1 N+2]);
     end
+    y_num = problimite(N,P,Q,R,a,b,alp,bet);
 
-    E(i-1) = max(abs(problimite(N,P,Q,R,a,b,alp,bet)-funcy(x)));
+    x_int = x(2:end-1);
+    y_int = y_num(2:end-1);
+    y_exact_int = funcy(x_int);
+
+    E(i-1) = max(abs(y_int - y_exact_int));
+
+    
+    %E(i-1) = max(abs(problimite(N,P,Q,R,a,b,alp,bet)-funcy(x)));
 end
 figure(2);
-semilogx(10.^(-(2:k)),E,'-o');
-set ( gca, 'xdir', 'reverse' )
+%semilogx(10.^(-(2:k)),E,'-o');
+loglog(10.^(-(2:k)),E,'-o');
+%set ( gca, 'xdir', 'reverse' )
